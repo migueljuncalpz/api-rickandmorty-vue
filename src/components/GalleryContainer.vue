@@ -5,7 +5,6 @@ export default{
   data:()=>({
     characters:[],
   }),
-  inject:['heading','description'],
   components:{
     CardVue,
   },

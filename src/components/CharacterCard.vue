@@ -1,26 +1,30 @@
 <script>
+import { searchStore } from '@/stores/characters'
+import {computed} from "vue";
+
 export default{
   name:'CardVue',
-  data:() => ({
-    characters:[],
-  }),
-  inject:["getCards"],
-  created() {
-    fetch("https://rickandmortyapi.com/api/character/?page=1")
-        .then(response => response.json())
-        .then(data => {
-          console.log(data.results)
-          this.characters=data.results
-          console.log(this.characters)
-        })
+  data:() =>{},
+
+  setup() {
+    const characters = searchStore()
+
+
+    let characters_list = computed(()=>characters.character_list)
+
+    return {
+      characters_list,
+    }
   },
 }
 </script>
 <template>
-  <div v-for="character in characters" class="card">
+  <div v-for="character in characters_list" class="card">
     <div class="front" v-bind:style="{ 'background-image': 'url(' + character.image + ')' }">
       <h4>{{character.name}}</h4>
       <h6>{{character.id}}</h6>
+      <h6>DEAD</h6>
+
     </div>
     <div onclick="" class="back">
       <div>

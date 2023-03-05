@@ -1,18 +1,19 @@
 <template>
   <div class="search-engine">
     <form id="search-form">
-      <input type="text" v-model="searchQuery" placeholder="character name" />
+      <input type="text" name="query" v-model="searchQuery" placeholder="character name" />
     </form>
   </div>
 </template>
 
 <script>
+
+import { searchStore } from '@/stores/characters'
+
 export default {
   name:"Search",
-  data() {
-    return {
-      searchQuery: '',
-    };
+  data() {},
+  setup() {
   },
   mounted() {
     function debounce(func, delay) {
@@ -28,41 +29,45 @@ export default {
       };
     }
 
+    let characters = []
     const debouncedRefresh = debounce(getCharacters,300)
-
     let currentPage=1
     let url = "https://rickandmortyapi.com/api/character/?"
-
+    function getCharacters(url) {
+      fetch(url)
+          .then(response => response.json())
+          .then(data =>{
+            console.log(data.results)
+            characters = data.results
+          })
+    }
+    const characters_store = searchStore()
+    const handleSearch = (characters) => {
+      characters_store.setSearchResponse(characters)
+    }
     let form = document.getElementById("search-form")
     form.addEventListener("input",async function(event) {
       event.preventDefault();
       const query = this.elements.query.value;
       url = "https://rickandmortyapi.com/api/character/?" + `name=${query}`+"&"
       debouncedRefresh(url)
+      handleSearch(characters)
     })
   },
-  methods: {
-    async search() {
-      const response = await fetch(`https://rickandmortyapi.com/api/character/?name=${this.searchQuery}`);
-      const data = await response.json();
-      console.log(data); // Muestra los resultados en la consola
-    },
-  },
 };
+
 </script>
 <style lang="scss">
 .search-engine{
-  display: inline-flex;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  padding-left: 8rem;
-  padding-right: 8rem;
+  display: flex;
   width: 100vw;
-  align-items: center;
+  padding-top: 2rem;
+  padding-bottom:2rem ;
+  justify-content: center;
   transition: transform 0.2s;
-
+  text-align: center;
   input{
-    width: 100%;
+    margin: 0 auto;
     transition: transform 0.2s;
     border-style:none;
     :hover{
