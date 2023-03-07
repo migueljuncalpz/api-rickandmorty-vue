@@ -1,21 +1,36 @@
 <template>
   <div class="search-engine">
     <form id="search-form">
-      <input type="text" name="query" v-model="searchQuery" placeholder="character name" />
+      <input type="text" name="query" placeholder="character name" />
     </form>
   </div>
 </template>
 
 <script>
 
-import { searchStore } from '@/stores/characters'
-
+import {mapState, mapGetters, mapActions} from "vuex";
 export default {
   name:"Search",
   data() {},
-  setup() {
+
+  computed: {
+    ...mapState(["searchStore"]),
+
+    ...mapGetters('searchStore', ['getUrl', 'getCharacters']),
+
+  },
+  methods: {
+    ...mapActions('searchStore',['getData','changeUrl']),
+
   },
   mounted() {
+    let url = this.getUrl
+    let updateUrl = (newUrl)=>{this.changeUrl(newUrl)}
+    let updateData= ()=>{this.getData()}
+    let getCharacters= ()=>{return this.getCharacters}
+
+
+
     function debounce(func, delay) {
       let timerId;
       return function (...args) {
@@ -29,30 +44,18 @@ export default {
       };
     }
 
-    let characters = []
-    const debouncedRefresh = debounce(getCharacters,300)
-    let currentPage=1
-    let url = "https://rickandmortyapi.com/api/character/?"
-    function getCharacters(url) {
-      fetch(url)
-          .then(response => response.json())
-          .then(data =>{
-            console.log(data.results)
-            characters = data.results
-          })
-    }
-    const characters_store = searchStore()
-    const handleSearch = (characters) => {
-      characters_store.setSearchResponse(characters)
-    }
     let form = document.getElementById("search-form")
     form.addEventListener("input",async function(event) {
       event.preventDefault();
       const query = this.elements.query.value;
       url = "https://rickandmortyapi.com/api/character/?" + `name=${query}`+"&"
-      debouncedRefresh(url)
-      handleSearch(characters)
+      updateUrl(url)
+      updateData();
+      console.log(getCharacters())
     })
+    updateData()
+    console.log(getCharacters())
+
   },
 };
 

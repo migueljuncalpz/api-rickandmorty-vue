@@ -8,8 +8,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "pinia": "^2.0.32",
-    "vue": "^3.2.47"
+    "vue": "^3.2.47",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",

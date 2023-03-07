@@ -1,40 +1,62 @@
 <script>
-import { searchStore } from '@/stores/characters'
-import {computed} from "vue";
+import {mapGetters, mapState} from "vuex";
 
 export default{
   name:'CardVue',
-  data:() =>{},
+  data:() =>{
+  },
+  computed: {
+    ...mapState(["searchStore"]),
 
-  setup() {
-    const characters = searchStore()
+    ...mapGetters('searchStore', ['getUrl', 'getCharacters']),
 
+    getCharactersList(){
+      return this.getCharacters
+    }
+  },
+  mounted() {
+    console.log(this.getCharactersList)
 
-    let characters_list = computed(()=>characters.character_list)
-
-    return {
-      characters_list,
+  },
+  methods:{
+    statusColor:(status)=>{
+      switch (status){
+        case "Dead": return "#FF0000" ;
+        case "Alive": return "#4F7942";
+        case "unknown":return "#FFFF00";
+        default:return "black";
+      }
     }
   },
 }
 </script>
 <template>
-  <div v-for="character in characters_list" class="card">
+  <div v-for="character in getCharactersList" class="card">
     <div class="front" v-bind:style="{ 'background-image': 'url(' + character.image + ')' }">
-      <h4>{{character.name}}</h4>
-      <h6>{{character.id}}</h6>
-      <h6>DEAD</h6>
-
+      <h4>{{character.name}}<br>#{{character.id}}</h4>
+      <h6 v-bind:style="{ 'color': + statusColor(character.status)}">{{character.status}}</h6>
     </div>
     <div onclick="" class="back">
       <div>
-        <h4>Specie:{{character.species}}</h4>
-        <br>
-        <h4>Gender:{{character.gender}}</h4>
-        <br>
-        <h4>Location:{{character.location.name}}</h4>
-        <br>
-        <h4>Episodes:{{character.episode.length}}</h4>
+        <img class="character-image" v-bind:src="character.image" v-bind:alt="character.name+' image'">
+        <table class="character-table">
+          <tr>
+            <td><strong>Specie</strong></td>
+            <td>{{character.species}}</td>
+          </tr>
+          <tr>
+            <td><strong>Gender</strong></td>
+            <td>{{character.gender}}</td>
+          </tr>
+          <tr>
+            <td><strong>Location</strong></td>
+            <td>{{character.location.name}}</td>
+          </tr>
+          <tr>
+            <td><strong>Episodes</strong></td>
+            <td>{{character.episode.length}}</td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
@@ -120,6 +142,10 @@ $orange: hsl(50,80%,50%);
   transform: rotateY(-180deg);
   padding: 0 2em;
 
+  .character-image{
+    width: 90%;
+  }
+
   .button {
     background: linear-gradient(135deg, adjust-hue($primary, -20deg), $primary);
     font-weight: bold;
@@ -147,6 +173,15 @@ $orange: hsl(50,80%,50%);
     }
   }
 
+  .character-table{
+    text-align: center;
+    border-style: solid;
+    width: 100%;
+    td{
+      border: solid;
+      border-collapse: collapse;
+    }
+  }
   .card:nth-child(even):hover & {
     transform: rotateY(0deg);
   }

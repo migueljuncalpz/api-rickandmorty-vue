@@ -1,4 +1,5 @@
 <template>
+  <h1>{{this.$store.state.searchStore.url}}</h1>
   <HeaderVue></HeaderVue>
   <Search></Search>
   <GalleryContainer></GalleryContainer>
