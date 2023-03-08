@@ -14,10 +14,6 @@ export default{
       return this.getCharacters
     }
   },
-  mounted() {
-    console.log(this.getCharactersList)
-
-  },
   methods:{
     statusColor:(status)=>{
       switch (status){

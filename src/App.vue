@@ -1,20 +1,22 @@
 <template>
-  <h1>{{this.$store.state.searchStore.url}}</h1>
   <HeaderVue></HeaderVue>
   <Search></Search>
   <GalleryContainer></GalleryContainer>
+  <Pagination></Pagination>
 </template>
 
 <script>
 import GalleryContainer   from '@/components/GalleryContainer.vue'
 import HeaderVue from "@/components/Header.vue";
 import Search from "@/components/Search.vue";
+import Pagination from "@/components/Pagination.vue";
 export default{
   data:()=>({}),
   components:{
     Search,
     HeaderVue,
     GalleryContainer,
+    Pagination
   }
 }
 </script>
@@ -25,7 +27,6 @@ html, body {
   height: 100vh;
   width: 100vw;
   margin: 0;
-  //background-image: url("../public/bg/bg.jpg");
   background-attachment: fixed;
   background-size: cover;
   backdrop-filter: blur(2px);

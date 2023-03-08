@@ -1,21 +1,22 @@
 <script>
 import CardVue from "./CharacterCard.vue"
+import {mapGetters, mapState} from "vuex";
 export default{
   name:'GalleryItem',
-  data:()=>({
-    characters:[],
-  }),
+
   components:{
     CardVue,
   },
-
+  computed: {
+    ...mapState(["searchStore"]),
+    ...mapGetters('searchStore', ['getCharactersCount']),
+  },
 }
 </script>
 
 <template>
   <div class="content">
-    <h1 class="heading">Found Characters</h1>
-    <p class="description">Filters:</p>
+    <h1 class="heading">Characters Found:{{this.getCharactersCount}}</h1>
     <CardVue></CardVue>
   </div>
 </template>

@@ -1,8 +1,6 @@
 <template>
-  <div class="search-engine">
-    <form id="search-form">
-      <input type="text" name="query" placeholder="character name" />
-    </form>
+  <div id="search" class="search-engine" >
+      <input type="text" name="query" placeholder="character name"/>
   </div>
 </template>
 
@@ -11,7 +9,9 @@
 import {mapState, mapGetters, mapActions} from "vuex";
 export default {
   name:"Search",
-  data() {},
+  data() {
+
+  },
 
   computed: {
     ...mapState(["searchStore"]),
@@ -29,7 +29,7 @@ export default {
     let updateData= ()=>{this.getData()}
     let getCharacters= ()=>{return this.getCharacters}
 
-
+    let debouncedDataSearch = debounce(updateData,300)
 
     function debounce(func, delay) {
       let timerId;
@@ -44,18 +44,15 @@ export default {
       };
     }
 
-    let form = document.getElementById("search-form")
+    let form = document.getElementById("search")
     form.addEventListener("input",async function(event) {
       event.preventDefault();
-      const query = this.elements.query.value;
+      const query = this.querySelector("input").value;
       url = "https://rickandmortyapi.com/api/character/?" + `name=${query}`+"&"
       updateUrl(url)
-      updateData();
-      console.log(getCharacters())
+      debouncedDataSearch();
     })
     updateData()
-    console.log(getCharacters())
-
   },
 };
 
