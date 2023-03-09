@@ -24,7 +24,7 @@ export default {
 
   },
   mounted() {
-    let url = this.getUrl
+    let getUrl= ()=>{return this.getUrl}
     let updateUrl = (newUrl)=>{this.changeUrl(newUrl)}
     let updateData= ()=>{this.getData()}
     let getCharacters= ()=>{return this.getCharacters}
@@ -48,7 +48,9 @@ export default {
     form.addEventListener("input",async function(event) {
       event.preventDefault();
       const query = this.querySelector("input").value;
-      url = "https://rickandmortyapi.com/api/character/?" + `name=${query}`+"&"
+      let url=new URL(getUrl())
+      url.searchParams.set("name",query)
+      url.searchParams.set("page","1")
       updateUrl(url)
       debouncedDataSearch();
     })
