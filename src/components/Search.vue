@@ -67,17 +67,20 @@ export default {
   padding-bottom:2rem ;
   justify-content: center;
   transition: transform 0.2s;
-  text-align: center;
   input{
+    width: 60%;
+    height: 2em;
     margin: 0 auto;
     transition: transform 0.2s;
     border-style:none;
-    :hover{
+    border-bottom-style: solid;
+    font-size: calc(1vw + 1vh);
+    text-transform:uppercase;
+    &:hover{
       transform: scale(1.2);
     }
-    :focus{
-      border-color: #333333;
-      border-style: none;
+    &:focus{
+      outline-width: 0;
     }
   }
 }
