@@ -32,12 +32,11 @@ export default {
     nextPage() {
       let url = new URL(this.getUrl)
       let currentPage = url.searchParams.get("page").toString()
-      if (currentPage<=this.getTotalPages) {
+      if (currentPage<this.getTotalPages) {
         currentPage++;
         url.searchParams.set("page",currentPage)
         this.changeUrl(url.toString())
         this.getData()
-
       }
     },
 

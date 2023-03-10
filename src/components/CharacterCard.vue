@@ -182,49 +182,4 @@ $orange: hsl(50,80%,50%);
     transform: rotateY(0deg);
   }
 }
-.button {
-  $height: 40px;
-  transform: translateZ($height);
-  cursor: pointer;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  font-weight: bold;
-  color: #fff;
-  padding: .5em 1em;
-  border-radius: 100px;
-  font: inherit;
-  border: none;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: 300ms ease;
-  &:before {
-    transition: 300ms ease;
-    position: absolute;
-    display: block;
-    content: '';
-    transform: translateZ(-$height);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    height: calc(100% - 20px);
-    width: calc(100% - 20px);
-    border-radius: 100px;
-    left: 10px;
-    top: 16px;
-  }
-  &:hover {
-    transform: translateZ($height + 15px);
-
-    &:before {
-      transform: translateZ(-($height + 15px));
-    }
-  }
-  &:active {
-    transform: translateZ($height/2);
-
-    &:before {
-      transform: translateZ(-($height/2));
-      top: 12px;
-    }
-  }
-}
 </style>
