@@ -61,9 +61,7 @@ export default {
   justify-content: center;
   padding: 1rem;
   .page{
-    padding: 1rem;
-    border-style: solid;
-    border-radius: 20px;
+    padding: 0.5em 0.5em 0.5em 0.5em;
   }
 }
 </style>
