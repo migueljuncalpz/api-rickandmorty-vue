@@ -1,9 +1,13 @@
 <template>
   <HeaderVue></HeaderVue>
-  <Search></Search>
-  <Filters></Filters>
-  <GalleryContainer></GalleryContainer>
-  <Pagination></Pagination>
+  <Menu></Menu>
+  <Search v-if="'characters'===this.getStore"></Search>
+  <Filters v-if="'characters'===this.getStore"></Filters>
+  <GalleryContainer>
+    <template v-if="'characters'===this.getStore" v-slot:container-header>{{this.getCharactersCount}} Characters Found</template>
+    <template v-else-if="'episodes'===this.getStore" v-slot:container-header>{{this.getEpisodesCount}} Episodes Found</template>
+  </GalleryContainer>
+  <Pagination v-if="(getCharactersCount!==0 && 'characters'===this.getStore) || this.getEpisodesCount!==0 && 'episodes'===this.getStore "></Pagination>
 </template>
 
 <script>
@@ -12,6 +16,8 @@ import HeaderVue from "@/components/Header.vue";
 import Search from "@/components/Search.vue";
 import Pagination from "@/components/Pagination.vue";
 import Filters from "@/components/Filters.vue";
+import {mapGetters, mapState} from "vuex";
+import Menu from "@/components/Menu.vue";
 export default{
   data:()=>({}),
   components:{
@@ -19,8 +25,15 @@ export default{
     HeaderVue,
     GalleryContainer,
     Pagination,
-    Filters
-  }
+    Filters,
+    Menu
+  },
+  computed: {
+    ...mapState(["searchStore"]),
+    ...mapGetters('searchStore', ['getCharactersCount']),
+    ...mapGetters('episodeStore', ['getEpisodesCount']),
+    ...mapGetters(["getStore"])
+  },
 }
 </script>
 

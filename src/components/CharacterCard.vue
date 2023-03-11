@@ -12,23 +12,13 @@ export default{
       return this.getCharacters
     }
   },
-  methods:{
-    statusColor:(status)=>{
-      switch (status){
-        case "Dead": return "#FF0000" ;
-        case "Alive": return "#4F7942";
-        case "unknown":return "#FFFF00";
-        default:return "black";
-      }
-    }
-  },
 }
 </script>
 <template>
   <div v-for="character in getCharactersList" class="card">
     <div class="front" v-bind:style="{ 'background-image': 'url(' + character.image + ')' }">
       <h4>{{character.name}}<br>#{{character.id}}</h4>
-      <h6 v-bind:style="{ 'color': + statusColor(character.status)}">{{character.status}}</h6>
+      <h6>{{character.status}}</h6>
     </div>
     <div onclick="" class="back">
       <div>

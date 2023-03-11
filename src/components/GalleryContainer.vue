@@ -1,23 +1,28 @@
 <script>
 import CardVue from "./CharacterCard.vue"
 import {mapGetters, mapState} from "vuex";
+import Episode from "@/components/episode.vue";
 export default{
   name:'GalleryItem',
 
   components:{
+    Episode,
     CardVue,
   },
   computed: {
     ...mapState(["searchStore"]),
     ...mapGetters('searchStore', ['getCharactersCount']),
+    ...mapGetters( ['getStore']),
+
   },
 }
 </script>
 
 <template>
   <div class="content">
-    <h1 class="heading">Characters Found:{{this.getCharactersCount}}</h1>
-    <CardVue></CardVue>
+    <h1 class="heading"><slot name="container-header"></slot></h1>
+    <CardVue v-if="'characters'===this.getStore"></CardVue>
+    <Episode v-else-if="'episodes'===this.getStore"></Episode>
   </div>
 </template>
 
