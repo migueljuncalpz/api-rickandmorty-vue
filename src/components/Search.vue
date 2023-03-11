@@ -9,9 +9,6 @@
 import {mapState, mapGetters, mapActions} from "vuex";
 export default {
   name:"Search",
-  data() {
-
-  },
 
   computed: {
     ...mapState(["searchStore"]),

@@ -1,6 +1,7 @@
 <template>
   <HeaderVue></HeaderVue>
   <Search></Search>
+  <Filters></Filters>
   <GalleryContainer></GalleryContainer>
   <Pagination></Pagination>
 </template>
@@ -10,13 +11,15 @@ import GalleryContainer   from '@/components/GalleryContainer.vue'
 import HeaderVue from "@/components/Header.vue";
 import Search from "@/components/Search.vue";
 import Pagination from "@/components/Pagination.vue";
+import Filters from "@/components/Filters.vue";
 export default{
   data:()=>({}),
   components:{
     Search,
     HeaderVue,
     GalleryContainer,
-    Pagination
+    Pagination,
+    Filters
   }
 }
 </script>

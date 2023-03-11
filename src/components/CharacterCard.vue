@@ -3,8 +3,6 @@ import {mapGetters, mapState} from "vuex";
 
 export default{
   name:'CardVue',
-  data:() =>{
-  },
   computed: {
     ...mapState(["searchStore"]),
 
