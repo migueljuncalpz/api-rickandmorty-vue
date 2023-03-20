@@ -1,9 +1,14 @@
+import {InjectionKey} from "vue";
 
+inteface EpisodeStore {
+    foundEpisodes: Int
+}
 export default {
     namespaced: true,
     state: {
         foundEpisodes:0,
         episodes:[],
+        charactersInEpisode:[],
         currentEpisodesUrl:"https://rickandmortyapi.com/api/episode/?page=1",
         totalPages:0
     },
@@ -11,11 +16,12 @@ export default {
         getEpisodesCount:state=>state.foundEpisodes,
         getEpisodes: state => state.episodes,
         getEpisodesUrl: state => state.currentEpisodesUrl,
-        getTotalPages: state => state.totalPages
+        getCharactersInEpisodes: state => state.charactersInEpisode,
+        getEpisodesTotalPages: state => state.totalPages
     },
     actions: {
-        getData({commit , state }) {
-            fetch(state.currentUrl).then(
+        getDataEpisodes({commit , state }) {
+            fetch(state.currentEpisodesUrl).then(
                 response => response.json().then(
                     json => {
                         commit("SET_EPISODES_FOUND",json.info.count)
@@ -25,7 +31,8 @@ export default {
                 )
             )
         },
-        changeUrl({ commit } , newUrl){
+
+        changeUrlEpisodes({ commit } , newUrl){
             commit('SET_URL' , newUrl)
         }
     },
@@ -34,13 +41,16 @@ export default {
             state.episodes = data;
         },
         SET_URL(state,newUrl){
-            state.currentEpsiodesUrl=newUrl;
+            state.currentEpisodesUrl=newUrl;
         },
         SET_TOTAL_PAGES(state,pages){
             state.totalPages=pages
         },
-        SET_CHARACTERS_FOUND(state,numEpisodes){
+        SET_EPISODES_FOUND(state,numEpisodes){
             state.foundEpisodes=numEpisodes
+        },
+        SET_CHARACTERS_IN_EPISODES(state,characters){
+            state.charactersInEpisode=characters
         }
     }
 }
