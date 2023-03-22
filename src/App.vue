@@ -29,8 +29,8 @@ export default{
     Menu
   },
   computed: {
-    ...mapState(["searchStore"]),
-    ...mapGetters('searchStore', ['getCharactersCount']),
+    ...mapState(["characterStore"]),
+    ...mapGetters('characterStore', ['getCharactersCount']),
     ...mapGetters('episodeStore', ['getEpisodesCount']),
     ...mapGetters(["getStore"])
   },

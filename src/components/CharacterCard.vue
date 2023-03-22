@@ -4,9 +4,9 @@ import {mapGetters, mapState} from "vuex";
 export default{
   name:'CardVue',
   computed: {
-    ...mapState(["searchStore"]),
+    ...mapState(["characterStore"]),
 
-    ...mapGetters('searchStore', ['getUrl', 'getCharacters']),
+    ...mapGetters('characterStore', ['getUrl', 'getCharacters']),
 
     getCharactersList(){
       return this.getCharacters
@@ -125,6 +125,7 @@ $orange: hsl(50,80%,50%);
   background: #fff;
   transform: rotateY(-180deg);
   padding: 0 2em;
+  color: #fff;
 
   .character-image{
     width: 90%;
@@ -161,6 +162,7 @@ $orange: hsl(50,80%,50%);
     text-align: center;
     border-style: solid;
     width: 100%;
+    color: $primary;
     td{
       border: solid;
       border-collapse: collapse;

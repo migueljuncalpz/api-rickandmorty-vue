@@ -10,8 +10,8 @@ export default{
     CardVue,
   },
   computed: {
-    ...mapState(["searchStore"]),
-    ...mapGetters('searchStore', ['getCharactersCount']),
+    ...mapState(["characterStore"]),
+    ...mapGetters('characterStore', ['getCharactersCount']),
     ...mapGetters( ['getStore']),
 
   },

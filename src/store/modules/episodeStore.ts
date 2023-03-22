@@ -1,17 +1,24 @@
 import {InjectionKey} from "vue";
+import * as url from "url";
 
-inteface EpisodeStore {
-    foundEpisodes: Int
+export interface EpisodeStore {
+    charactersInEpisode: Array<object>,
+    currentEpisodesUrl: string,
+    episodes: Array<object>,
+    foundEpisodes:number,
+    totalPages: number,
 }
+
+let EpisodeStore;
 export default {
     namespaced: true,
-    state: {
+    state:(): EpisodeStore => ({
         foundEpisodes:0,
         episodes:[],
         charactersInEpisode:[],
         currentEpisodesUrl:"https://rickandmortyapi.com/api/episode/?page=1",
         totalPages:0
-    },
+    }),
     getters: {
         getEpisodesCount:state=>state.foundEpisodes,
         getEpisodes: state => state.episodes,

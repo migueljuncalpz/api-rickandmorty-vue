@@ -1,5 +1,5 @@
 import {createStore} from "vuex";
-import searchStore from './modules/characterStore'
+import characterStore from './modules/characterStore'
 import episodeStore from "@/store/modules/episodeStore";
 
 
@@ -22,7 +22,7 @@ const store = createStore({
         }
     },
     modules: {
-        searchStore,
+        characterStore,
         episodeStore
     },
 })

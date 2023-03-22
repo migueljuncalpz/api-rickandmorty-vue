@@ -17,37 +17,71 @@ export default {
   },
 
   computed: {
-    ...mapState(["searchStore"]),
+    ...mapState(["characterStore"]),
 
-    ...mapGetters('searchStore', ['getUrl', 'getCharacters','getTotalPages']),
+    ...mapGetters('characterStore', ['getUrl', 'getCharacters','getTotalPages']),
+    ...mapGetters('episodeStore', ['getEpisodesUrl', 'getEpisodes','getEpisodesTotalPages']),
 
+    ...mapGetters(["getStore"]),
+
+    getUrlFromStore(){
+      if(this.getStore==="episodes"){
+        return this.getEpisodesUrl
+      }else{
+        return this.getUrl
+      }
+    },
+    getTotalPagesFromStore(){
+      if(this.getStore==="episodes"){
+        return this.getEpisodesTotalPages
+      }else{
+        return this.getTotalPages
+      }
+    },
   },
   methods: {
-    ...mapActions('searchStore',['getData','changeUrl']),
 
-    getPage() {
-      return new URL(this.getUrl).searchParams.get("page")
+    ...mapActions('characterStore',['getData','changeUrl']),
+    ...mapActions('episodeStore',['getDataEpisodes','changeUrlEpisodes']),
+
+    setUrlFromStore(url){
+      if(this.getStore==="episodes"){
+         this.changeUrlEpisodes(url)
+      }else{
+        this.changeUrl(url)
+      }
     },
-
-    nextPage() {
-      let url = new URL(this.getUrl)
-      let currentPage = url.searchParams.get("page").toString()
-      if (currentPage<this.getTotalPages) {
-        currentPage++;
-        url.searchParams.set("page",currentPage)
-        this.changeUrl(url.toString())
+    getDataFromStore(){
+      if(this.getStore==="episodes"){
+        this.getDataEpisodes()
+      }else{
         this.getData()
       }
     },
 
+    getPage() {
+      return new URL(this.getUrlFromStore).searchParams.get("page")
+    },
+
+    nextPage() {
+      let url = new URL(this.getUrlFromStore)
+      let currentPage = url.searchParams.get("page").toString()
+      if (currentPage<this.getTotalPagesFromStore) {
+        currentPage++;
+        url.searchParams.set("page",currentPage)
+        this.setUrlFromStore(url)
+        this.getDataFromStore()
+      }
+    },
+
     prevPage() {
-      let url = new URL(this.getUrl)
+      let url = new URL(this.getUrlFromStore)
       let currentPage = url.searchParams.get("page").toString()
       if (currentPage>1) {
         currentPage--;
         url.searchParams.set("page",currentPage)
-        this.changeUrl(url.toString())
-        this.getData()
+        this.setUrlFromStore(url)
+        this.getDataFromStore()
       }
     },
   }

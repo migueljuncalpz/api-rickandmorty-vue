@@ -11,13 +11,13 @@ export default {
   name:"Search",
 
   computed: {
-    ...mapState(["searchStore"]),
+    ...mapState(["characterStore"]),
 
-    ...mapGetters('searchStore', ['getUrl', 'getCharacters']),
+    ...mapGetters('characterStore', ['getUrl', 'getCharacters']),
 
   },
   methods: {
-    ...mapActions('searchStore',['getData','changeUrl']),
+    ...mapActions('characterStore',['getData','changeUrl']),
 
   },
   mounted() {

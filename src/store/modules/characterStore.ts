@@ -1,12 +1,17 @@
-
+export interface CharacterStore{
+    foundCharacters:number,
+    characters:[],
+    currentUrl:string,
+    totalPages:number,
+}
 export default {
     namespaced: true,
-    state: {
+    state:():CharacterStore=>({
         foundCharacters:0,
         characters:[],
         currentUrl:"https://rickandmortyapi.com/api/character/?page=1",
         totalPages:0
-    },
+    }),
     getters: {
         getCharactersCount:state=>state.foundCharacters,
         getCharacters: state => state.characters,

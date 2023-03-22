@@ -36,13 +36,13 @@ export default {
   },
 
   computed: {
-    ...mapState(["searchStore"]),
+    ...mapState(["characterStore"]),
 
-    ...mapGetters('searchStore', ['getUrl', 'getCharacters','getTotalPages']),
+    ...mapGetters('characterStore', ['getUrl', 'getCharacters','getTotalPages']),
 
   },
   methods: {
-    ...mapActions('searchStore',['getData','changeUrl']),
+    ...mapActions('characterStore',['getData','changeUrl']),
 
     setGenderFilter(){
       let url = new URL(this.getUrl)
